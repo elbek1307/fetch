@@ -1,12 +1,24 @@
 let container = document.getElementById("container")
+let searchInput = document.getElementById("search")
 
 fetch('https://jsonplaceholder.typicode.com/photos?_limit=100')
   .then(response => response.json())
   .then(data => {
     console.log(data);
-    render(data)
+    render(data);
+    
+
+    searchInput.addEventListener("input", function () {
+      let value = searchInput.value.toLowerCase();
+
+      let filtered = data.filter(elbek =>
+        elbek.title.toLowerCase().includes(value)
+      );
+
+      render(filtered);
+    });
   })
-  .catch(error => console.error('Xatolik yuz berdi:', error));
+  
 
 
   function render(data){
@@ -17,3 +29,19 @@ fetch('https://jsonplaceholder.typicode.com/photos?_limit=100')
                 </div>
         `).join("")
   }
+
+
+  searchInput.addEventListener("input", function (){
+    let value = searchInput.value.toLowerCase()
+
+    let filter = data.filter(tok => tok.title.toLowerCase().includes(value))
+    render(filter)
+  })
+
+
+
+
+
+
+
+
